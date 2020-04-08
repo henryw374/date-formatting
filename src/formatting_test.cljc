@@ -8,11 +8,11 @@
     ; old/deprecated
     #?(:cljs ["js-joda" :as joda])
     #?(:cljs ["js-joda-timezone"])                          ; registers itself
-    ; below are
+    ; below are required by npm as peer deps
     #?(:cljs ["@js-joda/locale" :as joda-locale])
     #?(:cljs ["@js-joda/locale_en" :as joda-locale_en])
 
-    ; new but not what cljc.java-time is built on
+    ; newer (not deprecated) but not what cljc.java-time is built on
     ;["@js-joda/core" :as joda]
     ;["@js-joda/timezone"]
     ;["@js-joda/locale_en" :as joda-locale-en]
