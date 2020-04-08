@@ -1,0 +1,5 @@
+/.nrepl-port
+/.shadow-cljs
+/cljs-out
+/node_modules
+/package-lock.json
