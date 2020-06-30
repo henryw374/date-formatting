@@ -18,32 +18,33 @@
     ;["@js-joda/locale_en" :as joda-locale-en]
     ))
 
+(def party-time (local-date-time/of 2000 1 1 0 0 0 0))
+
 (deftest format-date-in-node
 
   ; illustrates the problem, with a fix described here...
   ; https://js-joda.github.io/js-joda/manual/formatting.html#formatting-with-locales
   ; but I cannot find the correct combo of npm deps to make this work
 
-  #?(:cljs (let [value (local-date-time/now)]
-             ;(js/console.log value)
-             (let [formatter (-> joda/DateTimeFormatter
-                                 ;(.ofPattern "MM")                   ; works!
-                                 (.ofPattern "MMMM")        ; fails
-                                 (.withLocale joda-locale/UK)
-                                 )]
-               (-> value
-                   (.format formatter)
-                   js/console.log))))
+  #?(:cljs
+     ;(js/console.log value)
+     (let [formatter (-> joda/DateTimeFormatter
+                         ;(.ofPattern "MM")                   ; works!
+                         (.ofPattern "MMMM")                ; fails
+                         (.withLocale joda-locale/UK)
+                         )]
+       (-> party-time
+           (.format formatter)
+           js/console.log)))
   )
 
 (deftest format-date-in-jvm
 
   ; works great in clojure
 
-  #?(:clj (let [value (local-date-time/now)]
-            (is (= "April"
-                   (-> (date-time-formatter/of-pattern "MMMM")
-                       (date-time-formatter/format value)))))))
+  #?(:clj (is (= "January"
+                 (-> (date-time-formatter/of-pattern "MMMM")
+                     (date-time-formatter/format party-time))))))
 
 
 
